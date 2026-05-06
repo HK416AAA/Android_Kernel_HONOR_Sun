@@ -1,0 +1,26 @@
+config GKI_HIDDEN_RCUTORTURE
+	bool
+	select TASKS_RUDE_RCU
+
+config GKI_HACKS_FOR_DEBUG_CONFIG
+	bool "GKI Dummy config options for debug configurations"
+	select TRACE_PREEMPT_TOGGLE
+	select TRACE_IRQFLAGS
+	select GKI_HIDDEN_RCUTORTURE
+
+config HONOR_DEBUG
+	bool "Enables Honor debug macro"
+	default n
+	help
+	  This enables the CONFIG_HONOR_DEBUG macro, instead of
+	  CONFIG_FINAL_RELEASE. Since we could not change gki_defconfig,
+	  CONFIG_FINAL_RELEASE could not be enabled on GKI build, which
+	  definitely should be a final-release build.
+
+	  CONFIG_HONOR_DEBUG indicates non-final-release build.
+
+config HONOR_RPHONE_DEBUG
+	tristate "Use honor rphone code"
+	default n
+	help
+	  use honor rphone code

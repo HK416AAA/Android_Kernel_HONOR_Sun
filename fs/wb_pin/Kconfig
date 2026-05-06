@@ -1,0 +1,6 @@
+config WB_PIN_MODE
+	tristate "fs pin mode set"
+	default n
+config WB_PIN_FILE
+	tristate "file pin set"
+	default n

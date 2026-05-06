@@ -1,0 +1,12 @@
+KERNEL_DIR=common
+DEFCONFIG=cnperf_defconfig
+FRAGMENT_CONFIG_CNPERF=${KERNEL_DIR}/arch/arm64/configs/cnperf.fragment
+if [ "${QSSI_DRIVER_ONLY}" != "true" ]; then
+PRE_DEFCONFIG_CMDS="KCONFIG_CONFIG=${ROOT_DIR}/${KERNEL_DIR}/arch/arm64/configs/${DEFCONFIG} ${ROOT_DIR}/${KERNEL_DIR}/scripts/kconfig/merge_config.sh -m -r ${ROOT_DIR}/${KERNEL_DIR}/arch/arm64/configs/gki_defconfig ${ROOT_DIR}/${FRAGMENT_CONFIG_CNPERF}"
+else
+FRAGMENT_CONFIG_QSSI_DRIVER_ONLY=${KERNEL_DIR}/arch/arm64/configs/qssi_driver_only.fragment
+PRE_DEFCONFIG_CMDS="KCONFIG_CONFIG=${ROOT_DIR}/${KERNEL_DIR}/arch/arm64/configs/${DEFCONFIG} ${ROOT_DIR}/${KERNEL_DIR}/scripts/kconfig/merge_config.sh -m -r ${ROOT_DIR}/${KERNEL_DIR}/arch/arm64/configs/gki_defconfig ${ROOT_DIR}/${FRAGMENT_CONFIG_CNPERF} ${ROOT_DIR}/${FRAGMENT_CONFIG_QSSI_DRIVER_ONLY}"
+fi
+
+POST_DEFCONFIG_CMDS="check_merged_defconfig_for_kernel_common"
+append_cmd POST_DEFCONFIG_CMDS "rm ${ROOT_DIR}/${KERNEL_DIR}/arch/arm64/configs/${DEFCONFIG}"

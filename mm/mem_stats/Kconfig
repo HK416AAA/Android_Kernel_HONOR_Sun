@@ -1,0 +1,71 @@
+config HONOR_MEM_STATS
+	bool "Enable mem stats"
+	default n
+
+config HONOR_MEM_REPORT
+	bool "Enable mem report"
+	depends on HONOR_MEM_STATS
+	default n
+
+config HONOR_CMA_REPORT
+	bool "CMA alloc timeout or fail report event"
+	depends on HONOR_MEM_REPORT
+	default n
+
+config HONOR_DMA_BUF_REPORT
+	bool "DMA-BUF alloc timeout or fail report event"
+	depends on HONOR_MEM_REPORT
+	default n
+
+config HONOR_GPU_MEM_REPORT
+	bool "GPU alloc timeout or fail report event"
+	depends on HONOR_MEM_REPORT
+	default n
+
+config HONOR_KMALLOC_REPORT
+	bool "KMALLOC alloc fail report event"
+	depends on HONOR_MEM_REPORT
+	default n
+
+config HONOR_BUDDY_INFO_REPORT
+	bool "Enable buddy info event report"
+	depends on HONOR_MEM_REPORT
+	default n
+
+config HONOR_MEM_DETECT
+	bool "if free page、file page、anon page anomal, event report"
+	depends on HONOR_MEM_STATS
+	default n
+
+config HONOR_ISOLATED_DETECT
+	bool "if isolated anomal, event report"
+	depends on HONOR_MEM_DETECT
+	default n
+
+config HONOR_PAGE_FAULT_STATS
+	bool "alloc pages statistics when page fault"
+	depends on HONOR_ALLOC_STATS
+	default n
+
+config HONOR_ANON_PAGE_STAT
+	bool "alloc anonymous pages statistics when page fault"
+	depends on HONOR_PAGE_FAULT_STATS
+	default n
+
+config HONOR_FILE_PAGE_STAT
+	bool "alloc file pages statistics when page fault"
+	depends on HONOR_PAGE_FAULT_STATS
+	default n
+
+config HONOR_SWAP_PAGE_STAT
+	bool "alloc swap pages statistics when page fault"
+	depends on HONOR_PAGE_FAULT_STATS
+	default n
+
+config MEM_CGROUP_ALLOC_STAT
+	bool "alloc pages statistics for mem cgroup"
+	depends on HONOR_ALLOC_STATS
+	default n
+
+source "mm/mem_stats/memlock_stats/Kconfig"
+source "mm/mem_stats/page_lock/Kconfig"
